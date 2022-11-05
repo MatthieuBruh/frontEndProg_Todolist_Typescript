@@ -1,9 +1,7 @@
-import React from "react";
 import { Todo } from "./interfaces";
 
+function Todotable( props: { todos: Todo[], deleteToDo: (index: number) => void } ) {
 
-// Recieve the list of todos from Todolist.tsx
-function Todotable( { todos }: { todos: Todo[] }) {
     return (
         <div>
             <table style={{ margin: '0 auto', width: '40%' }} >
@@ -16,11 +14,14 @@ function Todotable( { todos }: { todos: Todo[] }) {
                 </thead>
                 <tbody>
                 {
-                    todos.map((todo, index) => (
+                    props.todos.map((todo, index) => (
                         <tr key={index}>
                             <td>{todo.description}</td>
                             <td>{todo.date}</td>
                             <td>{todo.priority}</td>
+                            <td>
+                                <button onClick={() => { props.deleteToDo(index) }} >Delete</button>
+                            </td>
                         </tr>
                     ))
                 }

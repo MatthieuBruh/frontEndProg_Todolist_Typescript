@@ -1,14 +1,20 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Todotable from "./Todotable";
 import { Todo } from "./interfaces";
 
 function Todolist() {
     const [todos, setTodos] = useState<Todo[]>([]);
-    const [todo, setTodo] = useState<Todo>({ description: "", date: "", priority: "" });
+    const [todo, setTodo] = useState<Todo>({} as Todo);
 
     const addToDo = () => {
         setTodos([...todos, todo]);
-        setTodo({ description: "", date: "", priority: "" });
+        setTodo({description: '', date: '', priority: ''});
+    };
+
+    const deleteToDo = (index: number) => {
+        const newTodos = [...todos];
+        newTodos.splice(index, 1);
+        setTodos(newTodos);
     };
 
     return(
@@ -33,7 +39,7 @@ function Todolist() {
             </div>
 
             <div>
-                <Todotable todos={todos} />
+                <Todotable todos={todos} deleteToDo={deleteToDo} />
             </div>
         </div>
     );
